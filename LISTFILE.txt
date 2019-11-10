@@ -1,0 +1,57 @@
+Program Listing
+
+1000	prog    	START 	1000
+1000	        	LDA   	#0
+1003	        	STA   	COUNT
+1006	        	LDX   	#0
+1009	INPUT   	TD    	INDEV
+100C	        	JEQ   	INPUT
+100F	        	LDA   	#0
+1012	        	RD    	INDEV
+1015	        	COMP  	EOF
+1018	        	JEQ   	REV
+101B	        	STCH  	STR,X
+101E	        	LDA   	COUNT
+1021	        	ADD   	#1
+1024	        	STA   	COUNT
+1027	        	LDX   	COUNT
+102A	        	J     	INPUT
+102D	REV     	LDA   	COUNT
+1030	        	COMP  	#0
+1033	        	JEQ   	DONE
+1036	        	LDA   	COUNT
+1039	        	SUB   	#1
+103C	        	STA   	COUNT
+103F	        	LDX   	COUNT
+1042	OUTPUT  	TD    	OUTDEV
+1045	        	JEQ   	OUTPUT
+1048	        	LDCH  	STR,X
+104B	        	WD    	OUTDEV
+104E	        	LDA   	COUNT
+1051	        	SUB   	#1
+1054	        	COMP  	#0
+1057	        	JLT   	DONE
+105A	        	STA   	COUNT
+105D	        	LDA   	COUNT
+1060	        	J     	OUTPUT
+1063	DONE    	J     	*
+1066	OUTDEV  	BYTE  	X'05'
+1067	INDEV   	BYTE  	X'F3'
+1068	STR     	RESB  	100
+10CC	COUNT   	RESW  	1
+10CF	EOF     	BYTE  	X'000004'
+10D2	        	END   	prog
+
+Symbol Table
+
+prog    	1000
+INPUT   	1009
+REV     	102D
+OUTPUT  	1042
+DONE    	1063
+OUTDEV  	1066
+INDEV   	1067
+STR     	1068
+COUNT   	10CC
+EOF     	10CF
+
